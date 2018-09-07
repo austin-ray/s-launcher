@@ -6,6 +6,8 @@ import android.content.pm.ResolveInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,10 +16,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val adapter = Adapter(loadApps())
+        val adapter = Adapter(loadApps(), packageManager)
 
         list.layoutManager = LinearLayoutManager(applicationContext)
         list.adapter = adapter
+
+        input.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) { }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                s?.toString()?.let { adapter.applyFilter(it) }
+            }
+        })
     }
 
     private fun loadApps() : List<ResolveInfo> {

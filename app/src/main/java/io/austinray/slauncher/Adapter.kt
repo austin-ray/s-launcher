@@ -1,7 +1,6 @@
 package io.austinray.slauncher
 
-import android.content.Intent
-import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
@@ -12,7 +11,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import io.austinray.slauncher.Adapter.ApplicationViewHolder
 
-class Adapter(val data: List<ResolveInfo>) : RecyclerView.Adapter<ApplicationViewHolder>() {
+class Adapter(private val data: List<ResolveInfo>, private val pm: PackageManager) : RecyclerView.Adapter<ApplicationViewHolder>() {
+
+    private var filteredData = data
 
     inner class ApplicationViewHolder(view: View) : ViewHolder(view) {
         val icon: ImageView = view.findViewById(R.id.app_icon)
@@ -24,7 +25,7 @@ class Adapter(val data: List<ResolveInfo>) : RecyclerView.Adapter<ApplicationVie
                 val context = view.context
                 val pm = context.packageManager
 
-                val launchIntent = pm.getLaunchIntentForPackage(data[pos].activityInfo.packageName)
+                val launchIntent = pm.getLaunchIntentForPackage(filteredData[pos].activityInfo.packageName)
                 context?.startActivity(launchIntent)
             }
         }
@@ -36,13 +37,18 @@ class Adapter(val data: List<ResolveInfo>) : RecyclerView.Adapter<ApplicationVie
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return filteredData.size
     }
 
     override fun onBindViewHolder(holder: ApplicationViewHolder, position: Int) {
-        val dataNode = data[position]
+        val dataNode = filteredData[position]
 
         holder.icon.setImageDrawable(dataNode.loadIcon(holder.itemView.context.packageManager))
         holder.name.text = dataNode.activityInfo.loadLabel(holder.itemView.context.packageManager)
+    }
+
+    fun applyFilter(filterStr: String) {
+        filteredData = data.filter { it.loadLabel(pm).toString().toLowerCase().contains(filterStr.toLowerCase()) }
+        notifyDataSetChanged()
     }
 }
