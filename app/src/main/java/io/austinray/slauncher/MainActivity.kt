@@ -31,11 +31,15 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun loadApps() : List<ResolveInfo> {
+    private fun loadApps() : List<AppInfo> {
         val mainIntent = Intent(Intent.ACTION_MAIN, null)
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
         return packageManager.queryIntentActivities(mainIntent, PackageManager.GET_META_DATA)
                 .filter { it.activityInfo.loadLabel(packageManager).isNotEmpty() }
-                .sortedBy { it.activityInfo.loadLabel(packageManager).toString() }
+                .map {
+                    AppInfo(it.activityInfo.packageName, it.loadLabel(packageManager).toString(),
+                            it.loadIcon(packageManager))
+                }
+                .sortedBy { it.label }
     }
 }

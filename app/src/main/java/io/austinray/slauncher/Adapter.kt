@@ -1,7 +1,9 @@
 package io.austinray.slauncher
 
+import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
+import android.net.Uri
+import android.provider.Settings
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater
@@ -11,7 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import io.austinray.slauncher.Adapter.ApplicationViewHolder
 
-class Adapter(private val data: List<ResolveInfo>, private val pm: PackageManager) : RecyclerView.Adapter<ApplicationViewHolder>() {
+class Adapter(private val data: List<AppInfo>, private val pm: PackageManager) : RecyclerView.Adapter<ApplicationViewHolder>() {
 
     private var filteredData = data
 
@@ -21,12 +23,24 @@ class Adapter(private val data: List<ResolveInfo>, private val pm: PackageManage
 
         init {
             view.setOnClickListener {
-                val pos = adapterPosition
                 val context = view.context
-                val pm = context.packageManager
-
-                val launchIntent = pm.getLaunchIntentForPackage(filteredData[pos].activityInfo.packageName)
+                val pos = adapterPosition
+                val launchIntent = pm.getLaunchIntentForPackage(filteredData[pos].packageName)
                 context?.startActivity(launchIntent)
+            }
+
+            view.setOnLongClickListener {
+                val context = view.context
+                val pos = adapterPosition
+
+                val settingsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri = Uri.fromParts("package", filteredData[pos].packageName, null)
+
+                settingsIntent.data = uri
+
+                context?.startActivity(settingsIntent)
+
+                true
             }
         }
     }
@@ -43,12 +57,12 @@ class Adapter(private val data: List<ResolveInfo>, private val pm: PackageManage
     override fun onBindViewHolder(holder: ApplicationViewHolder, position: Int) {
         val dataNode = filteredData[position]
 
-        holder.icon.setImageDrawable(dataNode.loadIcon(holder.itemView.context.packageManager))
-        holder.name.text = dataNode.activityInfo.loadLabel(holder.itemView.context.packageManager)
+        holder.icon.setImageDrawable(dataNode.icon)
+        holder.name.text = dataNode.label
     }
 
     fun applyFilter(filterStr: String) {
-        filteredData = data.filter { it.loadLabel(pm).toString().toLowerCase().contains(filterStr.toLowerCase()) }
+        filteredData = data.filter { it.label.toLowerCase().contains(filterStr.toLowerCase()) }
         notifyDataSetChanged()
     }
 }
