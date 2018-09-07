@@ -1,4 +1,4 @@
-package austinray.io.slauncher
+package io.austinray.slauncher
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

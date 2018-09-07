@@ -1,4 +1,4 @@
-package austinray.io.slauncher
+package io.austinray.slauncher
 
 import org.junit.Test
 
