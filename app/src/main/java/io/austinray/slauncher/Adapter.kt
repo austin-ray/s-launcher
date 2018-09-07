@@ -62,7 +62,7 @@ class Adapter(private val data: List<AppInfo>, private val pm: PackageManager) :
     }
 
     fun applyFilter(filterStr: String) {
-        filteredData = data.filter { it.label.toLowerCase().contains(filterStr.toLowerCase()) }
+        filteredData = data.filter { it.label.toLowerCase().startsWith(filterStr.toLowerCase()) }
         notifyDataSetChanged()
     }
 }
