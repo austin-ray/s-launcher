@@ -1,12 +1,15 @@
 package io.austinray.slauncher
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.hardware.input.InputManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.inputmethod.InputMethodManager
 import io.austinray.slauncher.model.AppInfo
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -32,6 +35,10 @@ class MainActivity : AppCompatActivity() {
 
         clear.setOnClickListener {
             input.text.clear()
+            input.clearFocus()
+
+            val im = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            im.hideSoftInputFromWindow(this.currentFocus.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         }
     }
 
