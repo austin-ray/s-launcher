@@ -2,12 +2,12 @@ package io.austinray.slauncher
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import io.austinray.slauncher.model.AppInfo
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +29,10 @@ class MainActivity : AppCompatActivity() {
                 s?.toString()?.let { adapter.applyFilter(it) }
             }
         })
+
+        clear.setOnClickListener {
+            input.text.clear()
+        }
     }
 
     private fun loadApps() : List<AppInfo> {

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import io.austinray.slauncher.Adapter.ApplicationViewHolder
+import io.austinray.slauncher.model.AppInfo
 
 class Adapter(private val data: List<AppInfo>, private val pm: PackageManager) : RecyclerView.Adapter<ApplicationViewHolder>() {
 

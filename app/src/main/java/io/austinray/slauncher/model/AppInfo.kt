@@ -1,4 +1,4 @@
-package io.austinray.slauncher
+package io.austinray.slauncher.model
 
 import android.graphics.drawable.Drawable
 
