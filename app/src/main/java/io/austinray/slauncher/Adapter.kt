@@ -66,4 +66,9 @@ class Adapter(private val data: List<AppInfo>, private val pm: PackageManager) :
         filteredData = data.filter { it.label.toLowerCase().startsWith(filterStr.toLowerCase()) }
         notifyDataSetChanged()
     }
+
+    fun reset() {
+        filteredData = data
+        notifyDataSetChanged()
+    }
 }

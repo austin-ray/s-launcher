@@ -53,4 +53,12 @@ class MainActivity : AppCompatActivity() {
                 }
                 .sortedBy { it.label }
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        (list.adapter as? Adapter)?.reset()
+        input.text.clear()
+        input.clearFocus()
+    }
 }
