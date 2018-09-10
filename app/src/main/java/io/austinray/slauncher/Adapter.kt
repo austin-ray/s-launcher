@@ -39,6 +39,7 @@ class Adapter(var data: List<AppInfo>, private val pm: PackageManager) :
                 val uri = Uri.fromParts("package", filteredData[pos].packageName, null)
 
                 settingsIntent.data = uri
+                settingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
                 context?.startActivity(settingsIntent)
 
@@ -48,7 +49,7 @@ class Adapter(var data: List<AppInfo>, private val pm: PackageManager) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ApplicationViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_application, null)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_application, parent, false)
         return ApplicationViewHolder(view)
     }
 
