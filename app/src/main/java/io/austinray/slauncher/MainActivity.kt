@@ -2,15 +2,12 @@ package io.austinray.slauncher
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
-import io.austinray.slauncher.model.AppInfo
 import io.austinray.slauncher.viewmodel.ApplicationsModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -29,7 +26,6 @@ class MainActivity : AppCompatActivity() {
             adapter.data = apps?.toList()!!
             adapter.notifyDataSetChanged()
         }
-
 
         list.layoutManager = LinearLayoutManager(applicationContext)
         list.adapter = adapter
@@ -51,7 +47,6 @@ class MainActivity : AppCompatActivity() {
             im.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         }
     }
-
 
     override fun onResume() {
         super.onResume()

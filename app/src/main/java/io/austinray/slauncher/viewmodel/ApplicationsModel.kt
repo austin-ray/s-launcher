@@ -20,7 +20,7 @@ class ApplicationsModel : ViewModel() {
         return field
     }
 
-    private fun loadApps() : List<AppInfo> {
+    private fun loadApps(): List<AppInfo> {
         val mainIntent = Intent(Intent.ACTION_MAIN, null)
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
         return if (pm == null) return listOf() else
