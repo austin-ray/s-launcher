@@ -14,7 +14,8 @@ import android.widget.TextView
 import io.austinray.slauncher.Adapter.ApplicationViewHolder
 import io.austinray.slauncher.model.AppInfo
 
-class Adapter(var data: List<AppInfo>, private val pm: PackageManager) : RecyclerView.Adapter<ApplicationViewHolder>() {
+class Adapter(var data: List<AppInfo>, private val pm: PackageManager) :
+    RecyclerView.Adapter<ApplicationViewHolder>() {
 
     private var filteredData = data
 
@@ -63,7 +64,13 @@ class Adapter(var data: List<AppInfo>, private val pm: PackageManager) : Recycle
     }
 
     fun applyFilter(filterStr: String) {
-        filteredData = data.filter { it.label.toLowerCase().startsWith(filterStr.toLowerCase()) }
+        filteredData = data.filter { app ->
+
+            app.label.split(" ").find { word ->
+                word.toLowerCase().startsWith(filterStr.toLowerCase())
+            } != null
+        }
+
         notifyDataSetChanged()
     }
 
