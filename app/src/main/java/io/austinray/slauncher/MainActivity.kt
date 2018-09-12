@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    var packageReceiver: PackageReceiver? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         appsModel.apps.observeForever { apps ->
             adapter.data = apps?.toList()!!
+            adapter.applyFilter(adapter.filter)
             adapter.notifyDataSetChanged()
         }
 
@@ -46,6 +49,9 @@ class MainActivity : AppCompatActivity() {
             val im = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             im.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         }
+
+        packageReceiver = PackageReceiver(appsModel)
+        registerReceiver(packageReceiver, packageReceiver?.filter)
     }
 
     override fun onResume() {
@@ -54,5 +60,10 @@ class MainActivity : AppCompatActivity() {
         (list.adapter as? Adapter)?.reset()
         input.text.clear()
         input.clearFocus()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(packageReceiver)
     }
 }

@@ -20,6 +20,10 @@ class ApplicationsModel : ViewModel() {
         return field
     }
 
+    fun reloadApps() {
+        apps.value = loadApps()
+    }
+
     private fun loadApps(): List<AppInfo> {
         val mainIntent = Intent(Intent.ACTION_MAIN, null)
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)

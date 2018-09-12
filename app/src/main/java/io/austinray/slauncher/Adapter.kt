@@ -17,6 +17,8 @@ import io.austinray.slauncher.model.AppInfo
 class Adapter(var data: List<AppInfo>, private val pm: PackageManager) :
     RecyclerView.Adapter<ApplicationViewHolder>() {
 
+    var filter = ""
+
     private var filteredData = data
 
     inner class ApplicationViewHolder(view: View) : ViewHolder(view) {
@@ -65,6 +67,7 @@ class Adapter(var data: List<AppInfo>, private val pm: PackageManager) :
     }
 
     fun applyFilter(filterStr: String) {
+        filter = filterStr
         filteredData = data.filter { app ->
 
             app.label.split(" ").find { word ->
