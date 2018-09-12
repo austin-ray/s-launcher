@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.util.Log
 import io.austinray.slauncher.viewmodel.ApplicationsModel
 
 class PackageReceiver(private val viewModel: ApplicationsModel) : BroadcastReceiver() {
@@ -20,7 +19,6 @@ class PackageReceiver(private val viewModel: ApplicationsModel) : BroadcastRecei
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.d(this.javaClass.name, "Receivered Intent: ${intent?.action}")
         viewModel.reloadApps()
     }
 }
