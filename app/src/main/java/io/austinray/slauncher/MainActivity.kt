@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         }
 
-        list.layoutManager = LinearLayoutManager(applicationContext)
-        list.adapter = adapter
+        resultList.layoutManager = LinearLayoutManager(applicationContext)
+        resultList.adapter = adapter
 
         searchInput.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) { }
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        (list.adapter as? Adapter)?.reset()
+        (resultList.adapter as? Adapter)?.reset()
         searchInput.text.clear()
         searchInput.clearFocus()
     }

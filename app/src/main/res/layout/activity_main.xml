@@ -9,16 +9,28 @@
     android:focusableInTouchMode="true"
     tools:context=".MainActivity">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/resultList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchBarLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_application">
+
+    </android.support.v7.widget.RecyclerView>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/searchBarLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/search_bar_height"
         android:layout_margin="@dimen/search_bar_margin"
         android:background="?android:attr/colorBackground"
-        app:layout_constraintBottom_toTopOf="@+id/list"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/resultList">
 
         <ImageView
             android:id="@+id/launcherIcon"
@@ -59,15 +71,5 @@
             app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
     </android.support.constraint.ConstraintLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBarLayout"
-        tools:listitem="@layout/item_application" />
 
 </android.support.constraint.ConstraintLayout>
