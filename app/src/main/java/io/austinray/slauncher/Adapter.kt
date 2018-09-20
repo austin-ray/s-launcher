@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ class Adapter(var data: List<AppInfo>, private val pm: PackageManager) :
     var filter = ""
 
     private var filteredData = data
+    private var layout: LinearLayoutManager? = null
 
     inner class ApplicationViewHolder(view: View) : ViewHolder(view) {
         val icon: ImageView = view.findViewById(R.id.app_icon)
@@ -51,7 +53,8 @@ class Adapter(var data: List<AppInfo>, private val pm: PackageManager) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ApplicationViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_application, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_application, parent, false)
         return ApplicationViewHolder(view)
     }
 
@@ -68,18 +71,31 @@ class Adapter(var data: List<AppInfo>, private val pm: PackageManager) :
 
     fun applyFilter(filterStr: String) {
         filter = filterStr
-        filteredData = data.filter { app ->
 
-            app.label.split(" ").find { word ->
-                word.toLowerCase().startsWith(filterStr.toLowerCase())
-            } != null
+        if (filter.isEmpty()) {
+            filteredData = data
+            notifyDataSetChanged()
+            layout?.scrollToPositionWithOffset(0, 0)
+            return
+        }
+
+        filteredData = data.filter { app ->
+              app.label.split(" ").find { word ->
+                  word.toLowerCase()
+                      .contains(filterStr.toLowerCase())
+              } != null
         }
 
         notifyDataSetChanged()
     }
 
     fun reset() {
-        filteredData = data
-        notifyDataSetChanged()
+        applyFilter("")
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        layout = recyclerView.layoutManager as? LinearLayoutManager
+        applyFilter("")
     }
 }

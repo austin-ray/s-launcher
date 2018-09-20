@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         appsModel.pm = packageManager
 
         val adapter = Adapter(mutableListOf(), packageManager)
+        val layoutManager = LinearLayoutManager(applicationContext)
+        layoutManager.stackFromEnd = true
 
         appsModel.apps.observeForever { apps ->
             adapter.data = apps?.toList()!!
@@ -30,25 +32,19 @@ class MainActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         }
 
-        resultList.layoutManager = LinearLayoutManager(applicationContext)
+        resultList.layoutManager = layoutManager
         resultList.adapter = adapter
 
         searchInput.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) { }
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.toString()?.let { adapter.applyFilter(it) }
             }
         })
 
-        searchClear.setOnClickListener {
-            searchInput.text.clear()
-            searchInput.clearFocus()
-
-            val im = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            im.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-        }
+        searchClear.setOnClickListener { clearSearchBar() }
 
         packageReceiver = PackageReceiver(appsModel)
         registerReceiver(packageReceiver, packageReceiver?.filter)
@@ -58,12 +54,23 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         (resultList.adapter as? Adapter)?.reset()
-        searchInput.text.clear()
-        searchInput.clearFocus()
+        clearSearchBar()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(packageReceiver)
+    }
+
+    private fun hideKeyboard() {
+        val im =
+            applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        im.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+    }
+
+    private fun clearSearchBar() {
+        searchInput.text.clear()
+        searchInput.clearFocus()
+        hideKeyboard()
     }
 }
