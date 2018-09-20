@@ -79,11 +79,9 @@ class Adapter(var data: List<AppInfo>, private val pm: PackageManager) :
             return
         }
 
+        val regex = Regex(filterStr, RegexOption.IGNORE_CASE)
         filteredData = data.filter { app ->
-              app.label.split(" ").find { word ->
-                  word.toLowerCase()
-                      .contains(filterStr.toLowerCase())
-              } != null
+            regex.find(app.label) != null
         }
 
         notifyDataSetChanged()
