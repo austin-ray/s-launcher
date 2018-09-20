@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">S Launcher</string>
+    <string name="app_icon">S Launcher Icon</string>
+
+    <string name="placeholder">Placeholder. Remove me!</string>
+
+    <string name="search_apps">Search apps</string>
+    <string name="search_clear">Clear search</string>
 </resources>
