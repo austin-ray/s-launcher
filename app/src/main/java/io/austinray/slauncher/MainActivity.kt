@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         list.layoutManager = LinearLayoutManager(applicationContext)
         list.adapter = adapter
 
-        input.addTextChangedListener(object : TextWatcher {
+        searchInput.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) { }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
 
@@ -42,9 +42,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        clear.setOnClickListener {
-            input.text.clear()
-            input.clearFocus()
+        searchClear.setOnClickListener {
+            searchInput.text.clear()
+            searchInput.clearFocus()
 
             val im = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             im.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
@@ -58,8 +58,8 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         (list.adapter as? Adapter)?.reset()
-        input.text.clear()
-        input.clearFocus()
+        searchInput.text.clear()
+        searchInput.clearFocus()
     }
 
     override fun onDestroy() {
