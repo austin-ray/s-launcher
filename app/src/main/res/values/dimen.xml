@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- General dimensions -->
+    <dimen name="outside_margin">12dp</dimen>
+    <dimen name="outside_margin_half">6dp</dimen>
+
+    <dimen name="internal_padding">8dp</dimen>
+
+    <!-- Search bar specific -->
     <dimen name="search_bar_height">40dp</dimen>
     <dimen name="search_bar_margin">8dp</dimen>
-
 
     <dimen name="search_image_width">45dp</dimen>
     <dimen name="search_image_padding">10dp</dimen>

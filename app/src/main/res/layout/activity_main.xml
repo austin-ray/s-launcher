@@ -13,6 +13,8 @@
         android:id="@+id/resultList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/outside_margin"
+        android:layout_marginStart="@dimen/outside_margin"
         app:layout_constraintBottom_toTopOf="@+id/searchBarLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,12 +27,13 @@
         android:id="@+id/searchBarLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/search_bar_height"
-        android:layout_margin="@dimen/search_bar_margin"
+        android:layout_marginBottom="@dimen/outside_margin"
+        android:layout_marginEnd="@dimen/outside_margin"
+        android:layout_marginStart="@dimen/outside_margin"
         android:background="?android:attr/colorBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resultList">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/launcherIcon"
