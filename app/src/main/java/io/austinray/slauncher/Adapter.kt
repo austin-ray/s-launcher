@@ -43,7 +43,7 @@ class Adapter(var data: List<AppInfo>, private val pm: PackageManager) :
                 val uri = Uri.fromParts("package", filteredData[pos].packageName, null)
 
                 settingsIntent.data = uri
-                settingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                settingsIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
 
                 context?.startActivity(settingsIntent)
 

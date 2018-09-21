@@ -1,0 +1,12 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="pref_hide_nav"
+        android:persistent="true"
+        android:title="@string/pref_hide_nav_bar" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="pref_hide_status"
+        android:persistent="true"
+        android:title="@string/pref_hide_status_bar" />
+</PreferenceScreen>
