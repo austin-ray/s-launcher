@@ -9,11 +9,10 @@ import android.os.Bundle
 import android.preference.PreferenceManager.getDefaultSharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import io.austinray.slauncher.util.determineUiVisibility
+import io.austinray.slauncher.util.helper.TextWatcherAdapter
 import io.austinray.slauncher.viewmodel.ApplicationsModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -24,17 +23,16 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     private var hideNav = false
     private var hideStatus = false
 
+    private var im: InputMethodManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        loadPreferences()
 
-        val sharedPrefs = getDefaultSharedPreferences(this)
-        sharedPrefs.registerOnSharedPreferenceChangeListener(this)
-        hideNav = sharedPrefs.getBoolean("pref_hide_nav", false)
-        hideStatus = sharedPrefs.getBoolean("pref_hide_status", false)
+        im = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        window.decorView.systemUiVisibility =
-                determineUiVisibility(hideNav, hideStatus)
+        window.decorView.systemUiVisibility = determineUiVisibility(hideNav, hideStatus)
 
         val appsModel = ViewModelProviders.of(this).get(ApplicationsModel::class.java)
         appsModel.pm = packageManager
@@ -52,25 +50,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         resultList.layoutManager = layoutManager
         resultList.adapter = adapter
 
-        searchInput.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                s?.toString()?.let {
-                    adapter.applyFilter(it)
-
-                    if (it.isEmpty()) {
-                        searchClear.visibility = View.INVISIBLE
-                        settings.visibility = View.VISIBLE
-                    } else {
-                        searchClear.visibility = View.VISIBLE
-                        settings.visibility = View.INVISIBLE
-                    }
-                }
-            }
-        })
-
+        configureSearchInput()
         searchClear.setOnClickListener { clearSearchBar() }
 
         // Open launcher settings
@@ -88,13 +68,46 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         registerReceiver(packageReceiver, packageReceiver?.filter)
     }
 
+    /**
+     * Load the SharedPreferences.
+     */
+    private fun loadPreferences() {
+        val sharedPrefs = getDefaultSharedPreferences(this)
+        sharedPrefs.registerOnSharedPreferenceChangeListener(this)
+
+        hideNav = sharedPrefs.getBoolean("pref_hide_nav", false)
+        hideStatus = sharedPrefs.getBoolean("pref_hide_status", false)
+    }
+
+    /**
+     * Configure the SearchInput in it's own function as it requires a lot of setup.
+     */
+    private fun configureSearchInput() {
+        with(searchInput) {
+            addTextChangedListener(object : TextWatcherAdapter() {
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    s?.toString()?.let {
+                        (resultList.adapter as Adapter).applyFilter(it)
+
+                        searchClear.visibility = if (it.isEmpty()) View.INVISIBLE else View.VISIBLE
+                        settings.visibility = if (it.isEmpty()) View.VISIBLE else View.INVISIBLE
+                    }
+                }
+            })
+            imeActionDone = ::hideKeyboard
+            onBackPress = {
+                hideKeyboard()
+                clearFocus()
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
 
         (resultList.adapter as? Adapter)?.reset()
         clearSearchBar()
-        window.decorView.systemUiVisibility =
-                determineUiVisibility(hideNav, hideStatus)
+        window.decorView.systemUiVisibility = determineUiVisibility(hideNav, hideStatus)
     }
 
     override fun onDestroy() {
@@ -103,11 +116,9 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     }
 
     private fun hideKeyboard() {
-        val im =
-            applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        im.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-        window.decorView.systemUiVisibility =
-                determineUiVisibility(hideNav, hideStatus)
+        currentFocus?.clearFocus()
+        im?.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        window.decorView.systemUiVisibility = determineUiVisibility(hideNav, hideStatus)
     }
 
     private fun clearSearchBar() {
