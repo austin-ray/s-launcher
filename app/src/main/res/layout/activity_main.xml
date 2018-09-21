@@ -66,11 +66,24 @@
             android:layout_height="0dp"
             android:contentDescription="@string/search_clear"
             android:padding="@dimen/search_image_padding"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/searchInput"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <ImageView
+            android:id="@+id/settings"
+            android:layout_width="@dimen/search_image_width"
+            android:layout_height="0dp"
+            android:contentDescription="@string/settings_launcher_open"
+            android:padding="@dimen/search_image_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/searchInput"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_settings" />
 
     </android.support.constraint.ConstraintLayout>
 

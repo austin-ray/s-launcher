@@ -22,4 +22,7 @@
         <item name="android:colorBackground">@color/colorBackground</item>
     </style>
 
+    <style name="SettingsTheme" parent="Theme.AppCompat.Light">
+
+    </style>
 </resources>
