@@ -13,7 +13,16 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:textColorHint">@android:color/white</item>
+        <!-- Text Color -->
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+        <item name="android:textColorHint">@color/colorTextHint</item>
+
+        <!-- Background Color -->
+        <item name="android:colorBackground">@color/colorBackground</item>
     </style>
 
+    <style name="SettingsTheme" parent="Theme.AppCompat.Light">
+
+    </style>
 </resources>

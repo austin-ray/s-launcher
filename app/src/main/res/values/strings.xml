@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">S Launcher</string>
+    <string name="app_icon">S Launcher Icon</string>
+
+    <string name="placeholder">Placeholder. Remove me!</string>
+
+    <string name="search_apps">Search apps</string>
+    <string name="search_clear">Clear search</string>
+
+    <string name="settings_launcher_open">Open launcher settings</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <!-- Settings on General Page -->
+    <string name="pref_hide_nav_bar">Hide navigation bar</string>
+    <string name="pref_hide_status_bar">Hide status bar</string>
 </resources>
