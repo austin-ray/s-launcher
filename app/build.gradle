@@ -10,7 +10,7 @@ plugins {
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "austinray.io.slauncher"
+        applicationId "io.austinray.slauncher"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
