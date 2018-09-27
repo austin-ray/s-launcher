@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     }
 
     private fun clearSearchBar() {
-        searchInput.text.clear()
+        searchInput.text?.clear()
         searchInput.clearFocus()
         hideKeyboard()
     }
