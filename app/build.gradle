@@ -7,14 +7,21 @@ plugins {
     id 'org.jmailen.kotlinter'
 }
 
+ext {
+    versionMajor = 0
+    versionMinor = 2
+    buildNum = 0
+
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "io.austinray.slauncher"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode = versionMajor * 100_000 + versionMinor * 1_000 + buildNum
+        versionName = versionMajor + "." + versionMinor + "." + buildNum
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
