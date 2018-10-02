@@ -4,9 +4,11 @@ import android.annotation.TargetApi
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.preference.ListPreference
 import android.preference.PreferenceActivity
 import android.preference.PreferenceFragment
 import android.view.MenuItem
+import io.austinray.slauncher.util.getInstalledIconPacks
 
 /**
  * A [PreferenceActivity] that presents a set of application settings. On
@@ -58,6 +60,8 @@ class SettingsActivity : PreferenceActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             addPreferencesFromResource(R.xml.pref_general)
+            val iconPackPreference = findPreference("icon_pack") as ListPreference?
+            initializeIconPackPreference(iconPackPreference!!)
             setHasOptionsMenu(true)
         }
 
@@ -68,6 +72,21 @@ class SettingsActivity : PreferenceActivity() {
                 return true
             }
             return super.onOptionsItemSelected(item)
+        }
+
+        private fun initializeIconPackPreference(lp: ListPreference) {
+            val iconPacks = getInstalledIconPacks(activity.packageManager, "org.adw.launcher.THEMES")
+
+            val entries = mutableListOf<CharSequence>("System Icons")
+            val entryVals = mutableListOf<CharSequence>("default")
+
+            iconPacks.forEach { it ->
+                entries.add(it.label)
+                entryVals.add(it.packageName)
+            }
+
+            lp.entries = entries.toTypedArray()
+            lp.entryValues = entryVals.toTypedArray()
         }
     }
 }
