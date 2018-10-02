@@ -1,26 +1,23 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.70'
     repositories {
         google()
         jcenter()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+        maven(url = "https://plugins.gradle.org/m2/")
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("com.android.tools.build:gradle:3.2.0")
+        classpath(kotlin("gradle-plugin", version = Versions.kotlin))
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'org.jmailen.gradle:kotlinter-gradle:1.17.0'
+        classpath("org.jmailen.gradle:kotlinter-gradle:1.17.0")
     }
 }
 
 plugins {
-  id "io.gitlab.arturbosch.detekt" version "1.0.0.RC8"
+  id("io.gitlab.arturbosch.detekt") version("1.0.0.RC8")
 }
 
 allprojects {
@@ -30,14 +27,14 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+task<Delete> ("clean") {
+    delete(rootProject.buildDir)
 }
 
 detekt {
   version = "1.0.0.RC8"
-    defaultProfile {
-        input = file("app/src/main/java")
+    profile("Main", Action {
+        input = "app/src/main/java"
         filters = ".*/resources/.*,.*/build/.*"
-    }
+    })
 }
