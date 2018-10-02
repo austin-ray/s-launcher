@@ -8,14 +8,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion(28)
+    compileSdkVersion(Android.targetSdk)
     defaultConfig {
-        applicationId = "io.austinray.slauncher"
-        minSdkVersion(19)
-        targetSdkVersion(28)
-        versionCode = VersionCode.major * 100_000 +  VersionCode.minor * 1_000 + VersionCode.build
-        versionName = "${VersionCode.major}.${VersionCode.minor}.${VersionCode.build}"
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        applicationId = Android.id
+        minSdkVersion(Android.minSdk)
+        targetSdkVersion(Android.targetSdk)
+        versionCode = Version.code
+        versionName = Version.name
+        testInstrumentationRunner = Android.instrumentationRunner
         vectorDrawables {
             useSupportLibrary = true
         }
