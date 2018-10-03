@@ -42,13 +42,12 @@ object Deps {
     private const val support ="com.android.support"
     private const val supportTest = "$support.test"
 
-    // Top-level dependencies
+    // Top-level Gradle dependencies
     const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Vers.kotlin}"
     const val kotlinter = "org.jmailen.gradle:kotlinter-gradle:${Vers.kotlinter}"
     const val androidGradle = "com.android.tools.build:gradle:${Vers.androidGradle}"
 
-    /* App specific dependencies */
-
+    /* Submodule dependencies */
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Vers.kotlin}"
 
     // Support libraries
@@ -59,14 +58,14 @@ object Deps {
     const val constraintLayout = "$support.constraint:constraint-layout:${Vers.androidConstraint}"
 
     // Lifecycle Dependencies
-    val lifeCycleCompiler = "$lifecycle:compiler:${Vers.androidLifecycle}"
-    val lifeCycleRuntime = "$lifecycle:runtime:${Vers.androidLifecycle}"
-    val lifeCycleViewModel = "$lifecycle:viewmodel:${Vers.androidLifecycle}"
-    val lifeCycleLiveData = "$lifecycle:livedata:${Vers.androidLifecycle}"
-    val lifeCycleExt = "$lifecycle:extensions:${Vers.androidLifecycle}"
+    const val lifeCycleCompiler = "$lifecycle:compiler:${Vers.androidLifecycle}"
+    const val lifeCycleRuntime = "$lifecycle:runtime:${Vers.androidLifecycle}"
+    const val lifeCycleViewModel = "$lifecycle:viewmodel:${Vers.androidLifecycle}"
+    const val lifeCycleLiveData = "$lifecycle:livedata:${Vers.androidLifecycle}"
+    const val lifeCycleExt = "$lifecycle:extensions:${Vers.androidLifecycle}"
 
     // Testing dependencies
-    val jUnit = "junit:junit:${Vers.jUnit}"
-    val testRunner = "$supportTest:runner:${Vers.androidRunner}"
-    val espresso = "$supportTest.espresso:espresso-core:${Vers.espresso}"
+    const val jUnit = "junit:junit:${Vers.jUnit}"
+    const val testRunner = "$supportTest:runner:${Vers.androidRunner}"
+    const val espresso = "$supportTest.espresso:espresso-core:${Vers.espresso}"
 }
