@@ -4,10 +4,13 @@
 
 ## What is S Launcher
 
-S Launcher is a small launcher created to refamiliarize myself with Android
-development, and learn how an integral part of the Android experience is
-developed. As part of the process, I cannot use any other launcher, which forces
-me to address any issues or missing features.
+S Launcher is a small, minimalist launcher focused on being the launching point
+to every part of your phone. It was started as a way to refamiliarize myself
+with Android development, to learn a launchers importance to the Android
+experience, and as bet with my friend,
+[Andrew](https://github.com/andrewgevans95). As part of the process, I cannot
+use any other launcher, which forces  me to address any issues or missing
+features. While intended for personal use, feel free to try it out!
 
 ## Features
 
@@ -17,6 +20,7 @@ S Launcher has the goal of supporting all of the listed features.
   - [x] App
   - [ ] Contact
   - [ ] Web
+  - [ ] Settings
   - [ ] File searching
 - [ ] Folders
 - [ ] Favorite apps
