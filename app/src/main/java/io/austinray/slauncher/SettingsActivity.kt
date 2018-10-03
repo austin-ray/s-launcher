@@ -4,9 +4,9 @@ import android.annotation.TargetApi
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.preference.ListPreference
 import android.preference.PreferenceActivity
-import android.preference.PreferenceFragment
+import android.support.v14.preference.PreferenceFragment
+import android.support.v7.preference.ListPreference
 import android.view.MenuItem
 import io.austinray.slauncher.util.getInstalledIconPacks
 
@@ -57,6 +57,8 @@ class SettingsActivity : PreferenceActivity() {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     class GeneralPreferenceFragment : PreferenceFragment() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) { }
+
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             addPreferencesFromResource(R.xml.pref_general)
