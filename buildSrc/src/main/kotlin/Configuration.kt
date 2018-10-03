@@ -22,9 +22,9 @@ object Android {
 }
 
 object Vers {
-    const val kotlin = "1.2.70"
-    const val kotlinter = "1.17.0"
-    const val detekt = "1.0.0.RC8"
+    const val kotlin = "1.2.71"
+    const val kotlinter = "1.19.0"
+    const val detekt = "1.0.0.RC9.2"
 
     const val androidGradle = "3.2.0"
     const val androidSupport = "28.0.0"

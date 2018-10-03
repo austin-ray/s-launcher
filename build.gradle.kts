@@ -17,7 +17,7 @@ buildscript {
 }
 
 plugins {
-  id(Plugins.detekt) version(Vers.detekt)
+    id(Plugins.detekt) version (Vers.detekt)
 }
 
 allprojects {
@@ -27,14 +27,12 @@ allprojects {
     }
 }
 
-task<Delete> ("clean") {
+task<Delete>("clean") {
     delete(rootProject.buildDir)
 }
 
 detekt {
-  version = Vers.detekt
-    profile("Main", Action {
-        input = "app/src/main/java"
-        filters = ".*/resources/.*,.*/build/.*"
-    })
+    version = Vers.detekt
+    input = files("app/src/main/java")
+    filters = ".*/resources/.*,.*/build/.*"
 }
