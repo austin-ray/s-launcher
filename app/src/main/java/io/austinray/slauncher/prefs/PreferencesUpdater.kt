@@ -14,7 +14,7 @@ class PreferencesUpdater : OnSharedPreferenceChangeListener {
         // Ensure proper data type.
         when (prefsMap[key]) {
             is Boolean -> prefsMap[key] = prefs.getBoolean(key, false)
-            is String -> prefsMap[key] = prefs.getString(key, "")
+            is String -> prefsMap[key] = prefs.getString(key, "") as Any
         }
     }
 }
