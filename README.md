@@ -1,4 +1,5 @@
 # S Launcher
+[![GitHub (pre-)release](https://img.shields.io/github/release/austin-ray/s-launcher/all.svg)](https://github.com/Austin-Ray/s-launcher/releases)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Travis (.org)](https://img.shields.io/travis/Austin-Ray/s-launcher.svg)](https://travis-ci.org/Austin-Ray/s-launcher)
 
