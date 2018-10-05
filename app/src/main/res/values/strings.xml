@@ -19,4 +19,5 @@
     <!-- Settings on General Page -->
     <string name="pref_hide_nav_bar">Hide navigation bar</string>
     <string name="pref_hide_status_bar">Hide status bar</string>
+    <string name="pref_icon_pack">Icon pack</string>
 </resources>

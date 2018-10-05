@@ -1,16 +1,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference
-        android:defaultValue="0"
-        android:key="icon_pack"
-        android:title="Icon Pack" />
+        android:defaultValue="@string/pref_def_icon_pack"
+        android:key="@string/pref_key_icon_pack"
+        android:title="@string/pref_icon_pack" />
     <SwitchPreference
-        android:defaultValue="false"
-        android:key="pref_hide_nav"
+        android:defaultValue="@bool/pref_def_hide_nav"
+        android:key="@string/pref_key_hide_nav"
         android:persistent="true"
         android:title="@string/pref_hide_nav_bar" />
     <SwitchPreference
-        android:defaultValue="false"
-        android:key="pref_hide_status"
+        android:defaultValue="@bool/pref_def_hide_status"
+        android:key="@string/pref_key_hide_status"
         android:persistent="true"
         android:title="@string/pref_hide_status_bar" />
 </PreferenceScreen>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Keys for preferences -->
+    <string name="pref_key_hide_nav">hide_nav</string>
+    <string name="pref_key_hide_status">hide_status</string>
+    <string name="pref_key_icon_pack">icon_pack</string>
+
+    <!-- Default values for the references -->
+    <bool name="pref_def_hide_nav">false</bool>
+    <bool name="pref_def_hide_status">false</bool>
+    <string name="pref_def_icon_pack">default</string>
+</resources>

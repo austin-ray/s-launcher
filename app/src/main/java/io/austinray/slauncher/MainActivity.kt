@@ -11,15 +11,14 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import io.austinray.slauncher.prefs.HIDE_NAV
-import io.austinray.slauncher.prefs.HIDE_STATUS
-import io.austinray.slauncher.prefs.ICON_PACK
-import io.austinray.slauncher.prefs.KEY_ICON_PACK
+import io.austinray.slauncher.prefs.Prefs
+import io.austinray.slauncher.prefs.Prefs.Keys.HIDE_NAV
+import io.austinray.slauncher.prefs.Prefs.Keys.HIDE_STATUS
+import io.austinray.slauncher.prefs.Prefs.Keys.ICON_PACK
 import io.austinray.slauncher.util.determineUiVisibility
 import io.austinray.slauncher.util.helper.TextWatcherAdapter
 import io.austinray.slauncher.util.iconHandler
 import io.austinray.slauncher.util.loadApps
-import io.austinray.slauncher.util.loadPreferences
 import io.austinray.slauncher.viewmodel.ApplicationsModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
         im = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        window.decorView.systemUiVisibility = determineUiVisibility(HIDE_NAV, HIDE_STATUS)
+        window.decorView.systemUiVisibility = determineUiVisibility()
 
         appsModel = ViewModelProviders.of(this).get(ApplicationsModel::class.java)
         appsModel?.apps?.value = loadApps(packageManager)
@@ -104,7 +103,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
         (resultList.adapter as? Adapter)?.reset()
         clearSearchBar()
-        window.decorView.systemUiVisibility = determineUiVisibility(HIDE_NAV, HIDE_STATUS)
+        window.decorView.systemUiVisibility = determineUiVisibility()
     }
 
     override fun onDestroy() {
@@ -115,7 +114,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     private fun hideKeyboard() {
         currentFocus?.clearFocus()
         im?.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-        window.decorView.systemUiVisibility = determineUiVisibility(HIDE_NAV, HIDE_STATUS)
+        window.decorView.systemUiVisibility = determineUiVisibility()
     }
 
     private fun clearSearchBar() {
@@ -126,11 +125,11 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         sharedPreferences?.let {
-            loadPreferences(sharedPreferences)
-            if (key == "pref_hide_nav" || key == "pref_hide_status") {
-                window.decorView.systemUiVisibility = determineUiVisibility(HIDE_NAV, HIDE_STATUS)
-            } else if (key == KEY_ICON_PACK) {
-                iconHandler.loadIconPack(ICON_PACK)
+            Prefs.load(sharedPreferences)
+            if (key == HIDE_NAV || key == HIDE_STATUS) {
+                window.decorView.systemUiVisibility = determineUiVisibility()
+            } else if (key == ICON_PACK) {
+                iconHandler.loadIconPack(Prefs[key])
                 appsModel?.apps?.value = loadApps(packageManager)
             }
         }
