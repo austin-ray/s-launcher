@@ -8,7 +8,7 @@ import android.preference.PreferenceActivity
 import android.support.v14.preference.PreferenceFragment
 import android.support.v7.preference.ListPreference
 import android.view.MenuItem
-import io.austinray.slauncher.util.getInstalledIconPacks
+import io.austinray.slauncher.util.iconHandler
 
 /**
  * A [PreferenceActivity] that presents a set of application settings. On
@@ -77,14 +77,14 @@ class SettingsActivity : PreferenceActivity() {
         }
 
         private fun initializeIconPackPreference(lp: ListPreference) {
-            val iconPacks = getInstalledIconPacks(activity.packageManager, "org.adw.launcher.THEMES")
+            val iconPacks = iconHandler.iconPacks
 
             val entries = mutableListOf<CharSequence>("System Icons")
             val entryVals = mutableListOf<CharSequence>("default")
 
             iconPacks.forEach { it ->
-                entries.add(it.label)
-                entryVals.add(it.packageName)
+                entries.add(it.value)
+                entryVals.add(it.key)
             }
 
             lp.entries = entries.toTypedArray()

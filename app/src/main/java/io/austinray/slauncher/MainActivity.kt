@@ -13,9 +13,12 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import io.austinray.slauncher.prefs.HIDE_NAV
 import io.austinray.slauncher.prefs.HIDE_STATUS
-import io.austinray.slauncher.prefs.PreferencesUpdater
+import io.austinray.slauncher.prefs.ICON_PACK
+import io.austinray.slauncher.prefs.KEY_ICON_PACK
 import io.austinray.slauncher.util.determineUiVisibility
 import io.austinray.slauncher.util.helper.TextWatcherAdapter
+import io.austinray.slauncher.util.iconHandler
+import io.austinray.slauncher.util.loadApps
 import io.austinray.slauncher.util.loadPreferences
 import io.austinray.slauncher.viewmodel.ApplicationsModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,30 +28,28 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     private var packageReceiver: PackageReceiver? = null
 
     private var im: InputMethodManager? = null
+    private var appsModel: ApplicationsModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         getDefaultSharedPreferences(this).apply {
-            val prefUpdater = PreferencesUpdater()
-            registerOnSharedPreferenceChangeListener(prefUpdater)
             registerOnSharedPreferenceChangeListener(this@MainActivity)
-            loadPreferences(this)
         }
 
         im = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         window.decorView.systemUiVisibility = determineUiVisibility(HIDE_NAV, HIDE_STATUS)
 
-        val appsModel = ViewModelProviders.of(this).get(ApplicationsModel::class.java)
-        appsModel.pm = packageManager
+        appsModel = ViewModelProviders.of(this).get(ApplicationsModel::class.java)
+        appsModel?.apps?.value = loadApps(packageManager)
 
         val adapter = Adapter(mutableListOf(), packageManager)
         val layoutManager = LinearLayoutManager(applicationContext)
         layoutManager.stackFromEnd = true
 
-        appsModel.apps.observeForever { apps ->
+        appsModel?.apps?.observeForever { apps ->
             adapter.data = apps?.toList()!!
             adapter.applyFilter(adapter.filter)
             adapter.notifyDataSetChanged()
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             true
         }
 
-        packageReceiver = PackageReceiver(appsModel)
+        packageReceiver = PackageReceiver(appsModel!!)
         registerReceiver(packageReceiver, packageReceiver?.filter)
     }
 
@@ -125,8 +126,12 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         sharedPreferences?.let {
+            loadPreferences(sharedPreferences)
             if (key == "pref_hide_nav" || key == "pref_hide_status") {
                 window.decorView.systemUiVisibility = determineUiVisibility(HIDE_NAV, HIDE_STATUS)
+            } else if (key == KEY_ICON_PACK) {
+                iconHandler.loadIconPack(ICON_PACK)
+                appsModel?.apps?.value = loadApps(packageManager)
             }
         }
     }
