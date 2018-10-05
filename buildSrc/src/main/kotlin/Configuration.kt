@@ -48,7 +48,7 @@ object Deps {
     const val androidGradle = "com.android.tools.build:gradle:${Vers.androidGradle}"
 
     /* Submodule dependencies */
-    const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Vers.kotlin}"
+    const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Vers.kotlin}"
 
     // Support libraries
     const val appCompat = "$support:appcompat-v7:${Vers.androidSupport}"
