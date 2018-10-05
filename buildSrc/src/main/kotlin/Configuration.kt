@@ -56,6 +56,7 @@ object Deps {
     const val supportV4 = "$support:support-v4:${Vers.androidSupport}"
     const val vectorDrawables = "$support:support-vector-drawable:${Vers.androidSupport}"
     const val constraintLayout = "$support.constraint:constraint-layout:${Vers.androidConstraint}"
+    const val preferences = "$support:preference-v7:${Vers.androidSupport}"
 
     // Lifecycle Dependencies
     const val lifeCycleCompiler = "$lifecycle:compiler:${Vers.androidLifecycle}"

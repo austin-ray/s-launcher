@@ -36,6 +36,7 @@ dependencies {
     implementation(Deps.recyclerView)
     implementation(Deps.supportV4)
     implementation(Deps.vectorDrawables)
+    implementation(Deps.preferences)
 
     // Android Lifecycle libraries
     kapt(Deps.lifeCycleCompiler)
