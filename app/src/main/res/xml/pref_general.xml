@@ -1,4 +1,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:defaultValue="0"
+        android:key="icon_pack"
+        android:title="Icon Pack" />
     <SwitchPreference
         android:defaultValue="false"
         android:key="pref_hide_nav"
