@@ -1,10 +1,10 @@
 package io.austinray.slauncher.view
 
 import android.content.Context
-import android.support.v7.widget.AppCompatEditText
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
+import androidx.appcompat.widget.AppCompatEditText
 
 /**
  * An extension EditText, which allows function calls on IME events.

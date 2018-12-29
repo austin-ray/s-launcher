@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceActivity
-import android.support.v14.preference.PreferenceFragment
-import android.support.v7.preference.ListPreference
+import androidx.preference.PreferenceFragment
+import androidx.preference.ListPreference
 import android.view.MenuItem
 import io.austinray.slauncher.util.iconHandler
 

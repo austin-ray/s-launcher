@@ -1,14 +1,14 @@
 package io.austinray.slauncher
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
 import android.preference.PreferenceManager.getDefaultSharedPreferences
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import io.austinray.slauncher.prefs.Prefs
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         appsModel?.apps?.value = loadApps(packageManager)
 
         val adapter = Adapter(mutableListOf(), packageManager)
-        val layoutManager = LinearLayoutManager(applicationContext)
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(applicationContext)
         layoutManager.stackFromEnd = true
 
         appsModel?.apps?.observeForever { apps ->

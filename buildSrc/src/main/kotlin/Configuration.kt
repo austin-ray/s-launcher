@@ -22,25 +22,26 @@ object Android {
 }
 
 object Vers {
-    const val kotlin = "1.2.71"
-    const val kotlinter = "1.19.0"
-    const val detekt = "1.0.0.RC9.2"
+    const val kotlin = "1.3.11"
+    const val kotlinter = "1.20.1"
+    const val detekt = "1.0.0-RC12"
 
-    const val androidGradle = "3.2.0"
+    const val androidGradle = "3.2.1"
     const val androidSupport = "28.0.0"
     const val androidConstraint = "1.1.3"
-    const val androidLifecycle = "1.1.1"
+    const val androidXSupport = "1.0.0"
+    const val androidXLifecycle = "2.0.0"
     const val androidRunner = "1.0.2"
 
-    const val espresso = "3.0.2"
+    const val espresso = "3.1.0"
     const val jUnit = "4.12"
 }
 
 object Deps {
     // Package groups
-    private const val lifecycle = "android.arch.lifecycle"
-    private const val support ="com.android.support"
-    private const val supportTest = "$support.test"
+    private const val lifecycle = "androidx.lifecycle"
+    private const val androidX ="androidx"
+    private const val androidXTest = "$androidX.test"
 
     // Top-level Gradle dependencies
     const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Vers.kotlin}"
@@ -51,22 +52,23 @@ object Deps {
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Vers.kotlin}"
 
     // Support libraries
-    const val appCompat = "$support:appcompat-v7:${Vers.androidSupport}"
-    const val recyclerView = "$support:recyclerview-v7:${Vers.androidSupport}"
-    const val supportV4 = "$support:support-v4:${Vers.androidSupport}"
-    const val vectorDrawables = "$support:support-vector-drawable:${Vers.androidSupport}"
-    const val constraintLayout = "$support.constraint:constraint-layout:${Vers.androidConstraint}"
-    const val preferences = "$support:preference-v7:${Vers.androidSupport}"
+    const val appCompat = "$androidX.appcompat:appcompat:${Vers.androidXSupport}"
+    const val recyclerView = "$androidX.recyclerview:recyclerview:${Vers.androidXSupport}"
+    const val supportV4 = "$androidX.legacy:legacy-support-v4:${Vers.androidXSupport}"
+    const val vectorDrawables = "$androidX.vectordrawable:vectordrawable:${Vers.androidXSupport}"
+    const val constraintLayout = "$androidX.constraintlayout:constraintlayout:${Vers.androidConstraint}"
+    const val preferences = "$androidX.preference:preference:${Vers.androidXSupport}"
+    const val preferencesLegacy = "$androidX.legacy:legacy-preference-v14:${Vers.androidXSupport}"
 
     // Lifecycle Dependencies
-    const val lifeCycleCompiler = "$lifecycle:compiler:${Vers.androidLifecycle}"
-    const val lifeCycleRuntime = "$lifecycle:runtime:${Vers.androidLifecycle}"
-    const val lifeCycleViewModel = "$lifecycle:viewmodel:${Vers.androidLifecycle}"
-    const val lifeCycleLiveData = "$lifecycle:livedata:${Vers.androidLifecycle}"
-    const val lifeCycleExt = "$lifecycle:extensions:${Vers.androidLifecycle}"
+    const val lifeCycleCompiler = "$lifecycle:lifecycle-compiler:${Vers.androidXLifecycle}"
+    const val lifeCycleRuntime = "$lifecycle:lifecycle-runtime:${Vers.androidXLifecycle}"
+    const val lifeCycleViewModel = "$lifecycle:lifecycle-viewmodel-ktx:${Vers.androidXLifecycle}"
+    const val lifeCycleLiveData = "$lifecycle:lifecycle-livedata:${Vers.androidXLifecycle}"
+    const val lifeCycleExt = "$lifecycle:lifecycle-extensions:${Vers.androidXLifecycle}"
 
     // Testing dependencies
     const val jUnit = "junit:junit:${Vers.jUnit}"
-    const val testRunner = "$supportTest:runner:${Vers.androidRunner}"
-    const val espresso = "$supportTest.espresso:espresso-core:${Vers.espresso}"
+    const val testRunner = "$androidXTest:runner:${Vers.androidRunner}"
+    const val espresso = "$androidXTest.espresso:espresso-core:${Vers.espresso}"
 }

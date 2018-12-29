@@ -4,9 +4,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +16,12 @@ import io.austinray.slauncher.Adapter.ApplicationViewHolder
 import io.austinray.slauncher.model.AppInfo
 
 class Adapter(var data: List<AppInfo>, private val pm: PackageManager) :
-    RecyclerView.Adapter<ApplicationViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<ApplicationViewHolder>() {
 
     var filter = ""
 
     private var filteredData = data
-    private var layout: LinearLayoutManager? = null
+    private var layout: androidx.recyclerview.widget.LinearLayoutManager? = null
 
     inner class ApplicationViewHolder(view: View) : ViewHolder(view) {
         val icon: ImageView = view.findViewById(R.id.app_icon)
@@ -91,9 +91,9 @@ class Adapter(var data: List<AppInfo>, private val pm: PackageManager) :
         applyFilter("")
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+    override fun onAttachedToRecyclerView(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-        layout = recyclerView.layoutManager as? LinearLayoutManager
+        layout = recyclerView.layoutManager as? androidx.recyclerview.widget.LinearLayoutManager
         applyFilter("")
     }
 }

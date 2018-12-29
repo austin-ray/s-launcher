@@ -1,7 +1,7 @@
 package io.austinray.slauncher.viewmodel
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.austinray.slauncher.model.AppInfo
 
 class ApplicationsModel : ViewModel() {
