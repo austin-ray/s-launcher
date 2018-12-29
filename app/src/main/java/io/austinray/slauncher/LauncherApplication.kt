@@ -2,6 +2,7 @@ package io.austinray.slauncher
 
 import android.app.Application
 import android.content.Context
+import android.preference.PreferenceManager
 import io.austinray.slauncher.icons.IconHandler
 import io.austinray.slauncher.prefs.PreferencesUpdater
 import io.austinray.slauncher.prefs.Prefs
@@ -14,6 +15,8 @@ class LauncherApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false)
 
         getSharedPreferences("${packageName}_preferences", Context.MODE_PRIVATE).apply {
             registerOnSharedPreferenceChangeListener(prefUpdater)
