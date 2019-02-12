@@ -5,9 +5,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceActivity
-import androidx.preference.PreferenceFragment
-import androidx.preference.ListPreference
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.ListPreference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
 import io.austinray.slauncher.util.iconHandler
 
 /**
@@ -20,11 +22,16 @@ import io.austinray.slauncher.util.iconHandler
  * for design guidelines and the [Settings API Guide](http://developer.android.com/guide/topics/ui/settings.html)
  * for more information on developing a Settings UI.
  */
-class SettingsActivity : PreferenceActivity() {
+class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupActionBar()
+        setContentView(R.layout.activity_settings)
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.settings_container, GeneralPreferenceFragment())
+            .commit()
     }
 
     /**
@@ -35,33 +42,24 @@ class SettingsActivity : PreferenceActivity() {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    override fun onBuildHeaders(target: List<PreferenceActivity.Header>) {
-        loadHeadersFromResource(R.xml.pref_headers, target)
-    }
-
-    /**
-     * This method stops fragment injection in malicious applications.
-     * Make sure to deny any unknown fragments here.
-     */
-    override fun isValidFragment(fragmentName: String): Boolean {
-        return PreferenceFragment::class.java.name == fragmentName ||
-                GeneralPreferenceFragment::class.java.name == fragmentName
-    }
-
-    /**
      * This fragment shows general preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    class GeneralPreferenceFragment : PreferenceFragment() {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) { }
+    class GeneralPreferenceFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {}
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
+
             addPreferencesFromResource(R.xml.pref_general)
+
+            // Status and navigation color preferences
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                val navStatusColorCat = findPreference("nav_status_color") as PreferenceCategory
+                preferenceScreen.removePreference(navStatusColorCat)
+            }
+
             val iconPackPreference = findPreference("icon_pack") as ListPreference?
             initializeIconPackPreference(iconPackPreference!!)
             setHasOptionsMenu(true)

@@ -22,6 +22,8 @@ object Prefs {
         val HIDE_NAV: String = res.getString(R.string.pref_key_hide_nav)
         val HIDE_STATUS: String = res.getString(R.string.pref_key_hide_status)
         val ICON_PACK: String = res.getString(R.string.pref_key_icon_pack)
+        val NAV_BAR_COLOR: String = res.getString(R.string.pref_key_nav_bar_color)
+        val STATUS_BAR_COLOR: String = res.getString(R.string.pref_key_status_bar_color)
     }
 
     /**
@@ -43,6 +45,7 @@ object Prefs {
         return when (T::class) {
             Boolean::class -> prefs[key] as T
             String::class -> prefs[key] as T
+            Int::class -> prefs[key] as T
             else -> throw UnsupportedOperationException("Preference type not implemented yet.")
         }
     }

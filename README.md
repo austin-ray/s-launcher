@@ -28,8 +28,8 @@ S Launcher has the goal of supporting all of the listed features.
 - [ ] Interface customization
   - [x] Hideable navigation
   - [x] Hideable status bar
-  - [ ] Custom status bar color
-  - [ ] Custom navigation color
+  - [x] Custom status bar color
+  - [x] Custom navigation color
   - [x] Icon pack support
   - [ ] Multiple color themes
   - [ ] Repositionable search bar

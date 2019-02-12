@@ -20,4 +20,6 @@
     <string name="pref_hide_nav_bar">Hide navigation bar</string>
     <string name="pref_hide_status_bar">Hide status bar</string>
     <string name="pref_icon_pack">Icon pack</string>
+    <string name="pref_status_bar_color">Status bar color</string>
+    <string name="pref_nav_bar_color">Navigation bar color</string>
 </resources>

@@ -2,7 +2,7 @@ package io.austinray.slauncher
 
 import android.app.Application
 import android.content.Context
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import io.austinray.slauncher.icons.IconHandler
 import io.austinray.slauncher.prefs.PreferencesUpdater
 import io.austinray.slauncher.prefs.Prefs

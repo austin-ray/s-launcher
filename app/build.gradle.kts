@@ -38,6 +38,8 @@ dependencies {
     implementation(Deps.vectorDrawables)
     implementation(Deps.preferences)
 
+    implementation(Deps.colorPicker)
+
     // Android Lifecycle libraries
     kapt(Deps.lifeCycleCompiler)
     implementation(Deps.lifeCycleRuntime)

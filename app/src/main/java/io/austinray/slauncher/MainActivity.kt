@@ -1,20 +1,22 @@
 package io.austinray.slauncher
 
-import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager.getDefaultSharedPreferences
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import io.austinray.slauncher.prefs.Prefs
 import io.austinray.slauncher.prefs.Prefs.Keys.HIDE_NAV
 import io.austinray.slauncher.prefs.Prefs.Keys.HIDE_STATUS
 import io.austinray.slauncher.prefs.Prefs.Keys.ICON_PACK
+import io.austinray.slauncher.prefs.Prefs.Keys.NAV_BAR_COLOR
+import io.austinray.slauncher.prefs.Prefs.Keys.STATUS_BAR_COLOR
 import io.austinray.slauncher.util.determineUiVisibility
 import io.austinray.slauncher.util.helper.TextWatcherAdapter
 import io.austinray.slauncher.util.iconHandler
@@ -39,7 +41,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
         im = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        window.decorView.systemUiVisibility = determineUiVisibility()
+        refreshInterface()
 
         appsModel = ViewModelProviders.of(this).get(ApplicationsModel::class.java)
         appsModel?.apps?.value = loadApps(packageManager)
@@ -103,7 +105,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
         (resultList.adapter as? Adapter)?.reset()
         clearSearchBar()
-        window.decorView.systemUiVisibility = determineUiVisibility()
+        refreshInterface()
     }
 
     override fun onDestroy() {
@@ -126,11 +128,24 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         sharedPreferences?.let {
             Prefs.load(sharedPreferences)
-            if (key == HIDE_NAV || key == HIDE_STATUS) {
-                window.decorView.systemUiVisibility = determineUiVisibility()
-            } else if (key == ICON_PACK) {
-                iconHandler.loadIconPack(Prefs[key])
-                appsModel?.apps?.value = loadApps(packageManager)
+            when (key) {
+                HIDE_NAV, HIDE_STATUS -> window.decorView.systemUiVisibility = determineUiVisibility()
+                ICON_PACK -> {
+                    iconHandler.loadIconPack(Prefs[key])
+                    appsModel?.apps?.value = loadApps(packageManager)
+                }
+                STATUS_BAR_COLOR -> refreshInterface()
+                NAV_BAR_COLOR -> refreshInterface()
+            }
+        }
+    }
+
+    private fun refreshInterface() {
+        window.apply {
+            decorView.systemUiVisibility = determineUiVisibility()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                statusBarColor = Prefs[STATUS_BAR_COLOR]
+                navigationBarColor = Prefs[NAV_BAR_COLOR]
             }
         }
     }

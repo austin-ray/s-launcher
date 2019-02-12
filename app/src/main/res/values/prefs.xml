@@ -4,9 +4,13 @@
     <string name="pref_key_hide_nav">hide_nav</string>
     <string name="pref_key_hide_status">hide_status</string>
     <string name="pref_key_icon_pack">icon_pack</string>
+    <string name="pref_key_nav_bar_color">navbar_color</string>
+    <string name="pref_key_status_bar_color">statusbar_color</string>
 
     <!-- Default values for the references -->
     <bool name="pref_def_hide_nav">false</bool>
     <bool name="pref_def_hide_status">false</bool>
     <string name="pref_def_icon_pack">default</string>
+    <color name="pref_def_nav_bar_color">#000000</color>
+    <color name="pref_def_status_bar_color">#000000</color>
 </resources>

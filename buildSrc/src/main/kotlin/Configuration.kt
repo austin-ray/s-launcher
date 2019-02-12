@@ -33,6 +33,8 @@ object Vers {
     const val androidXLifecycle = "2.0.0"
     const val androidRunner = "1.0.2"
 
+    const val colorPicker = "1.1.0"
+
     const val espresso = "3.1.0"
     const val jUnit = "4.12"
 }
@@ -50,6 +52,9 @@ object Deps {
 
     /* Submodule dependencies */
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Vers.kotlin}"
+
+    // Color picker
+    const val colorPicker = "com.jaredrummler:colorpicker:${Vers.colorPicker}"
 
     // Support libraries
     const val appCompat = "$androidX.appcompat:appcompat:${Vers.androidXSupport}"

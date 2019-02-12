@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <ListPreference
         android:defaultValue="@string/pref_def_icon_pack"
         android:key="@string/pref_key_icon_pack"
@@ -13,4 +14,19 @@
         android:key="@string/pref_key_hide_status"
         android:persistent="true"
         android:title="@string/pref_hide_status_bar" />
+
+    <PreferenceCategory android:key="nav_status_color">
+        <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+            android:defaultValue="@color/pref_def_nav_bar_color"
+            android:key="@string/pref_key_nav_bar_color"
+            android:persistent="true"
+            android:title="@string/pref_nav_bar_color"
+            app:cpv_showAlphaSlider="true" />
+        <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+            android:defaultValue="@color/pref_def_status_bar_color"
+            android:key="@string/pref_key_status_bar_color"
+            android:persistent="true"
+            android:title="@string/pref_status_bar_color"
+            app:cpv_showAlphaSlider="true" />
+    </PreferenceCategory>
 </PreferenceScreen>
